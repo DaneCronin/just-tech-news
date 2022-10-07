@@ -1,5 +1,6 @@
-const User = require('./User');
 const Post = require('./Post');
+const User = require('./User');
+
 
 //Define model associations
 User.hasMany(Post, {
@@ -8,7 +9,7 @@ User.hasMany(Post, {
 
 //Make reverse association to above relationship
 Post.belongsTo(User, {
-    foreignKey: 'user_id',
+    foreignKey: 'user_id'
 });
 
 
