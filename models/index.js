@@ -17,13 +17,13 @@ Post.belongsTo(User, {
 //Associate User and Post models to see total votes a user creates and see all posts a user votes on
 User.belongsToMany(Post, {
     through: Vote,
-    as: 'voted-posts',
+    //as: 'voted-posts',
     foreignKey: 'user_id'
 });
 
 Post.belongsToMany(User, {
     through: Vote,
-    as: 'voted_posts',
+  //  as: 'voted_posts',
     foreignKey: 'post_id'
 });
 

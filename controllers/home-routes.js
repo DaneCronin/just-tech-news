@@ -1,14 +1,16 @@
 const router = require('express').Router();
+const sequelize = require('../config/connection');
+const { User, Post, Comment, Vote } = require('../models');
 
 
+//Get all posts for the homepage
 router.get('/', (req, res) => {
-    console.log('==========================');
+    console.log('========================');
     Post.findAll({
         //Query Configuration:
         attributes: ['id', 'post_url', 'title', 'created_at', 
         [sequelize.literal('(SELECT COUNT(*) FROM vote WHERE post.id = vote.post_id)'), 'vote_count']
     ],
-        order: [['created_at', 'DESC']],
         include: [
             {
                 model: Comment,
@@ -39,6 +41,12 @@ router.get('/', (req, res) => {
 
 //Route to render Login Page
 router.get('/login', (req, res) => {
+
+    //check for a session and redirect to homepage if session exists
+    if (req.session.loggedIn) {
+        res.redirect('/');
+        return;
+    }
     res.render('login');
 });
 
